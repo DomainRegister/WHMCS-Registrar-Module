@@ -40,7 +40,12 @@ if (!class_exists('DomainRegister_API')) {
         protected $_domainid  = null;
 
         public function __construct( $email, $key) {
-            $this->_url     = "https://domainregister.international/domainsResellerAPI/api.php";
+            require_once __DIR__ . '/../../../includes/registrarfunctions.php';
+            $params = getRegistrarConfigOptions('DomainRegister');
+            if ($params['test']==TRUE) {
+        	    $this->_url     = "https://dev.domainregister.international/whmcs/domainsResellerAPI/api.php"; }
+            else
+               {$this->_url     = "https://domainregister.international/domainsResellerAPI/api.php"; }
             $this->_email   = $email;
             $this->_key     = $key;
         }

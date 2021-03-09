@@ -20,8 +20,8 @@
  * transferred.
  *
  *
- *      software version 1.01
- *      software release 20181217a
+ *      software version 2.00
+ *      software release 20210309a
  * ******************************************************************** */
 
 
@@ -46,7 +46,7 @@ function DomainRegister_getConfigArray() {
 		),
 		"Description" => array(
 			"Type"          => "System",
-			"Value"         => "DomainRegister allows you to manage .it domains and the widest variety of TLD.<br> Don't have a DomainRegister account yet? Register here for free: https://domainregister.international"
+			"Value"         => "DomainRegister allows you to manage .it domains and the widest variety of TLD.<br> Don't have a DomainRegister account yet? Register here for free: <a href=\"https://domainregister.international/register.php\">https://domainregister.international</a>"
 		),
 		"api_email" => array(
 			"FriendlyName"  => "User Email",
@@ -59,6 +59,11 @@ function DomainRegister_getConfigArray() {
 			"Type"          => "text",
 			"Size"          => "40",
 			"Description"   => "Enter the API key received from DomainRegister"
+		),
+        "test" => array(
+			"FriendlyName"  => "test mode",
+			'Type'          => 'yesno',
+			"Description"   => "Tick to enable test mode (sandbox)"
 		),
 	);
 	return $configarray;
@@ -74,43 +79,43 @@ function DomainRegister_RegisterDomain($params)
 {
 	$API = new DomainRegister_API($params['api_email'], $params['api_key']);
         $requeststring = array(
-		'action'		=> 'RegisterDomain',
-		'sld'			=> $params["sld"],
-		'tld'			=> $params["tld"],
-		'regperiod'		=> $params["regperiod"],
-		'nameserver1'           => $params["ns1"],
-		'nameserver2'           => $params["ns2"],
-		'nameserver3'           => $params["ns3"],
-		'nameserver4'           => $params["ns4"],
-		'nameserver5'           => $params["ns5"],
+		'action'			=> 'RegisterDomain',
+		'sld'				=> $params["sld"],
+		'tld'				=> $params["tld"],
+		'regperiod'			=> $params["regperiod"],
+		'nameserver1'       => $params["ns1"],
+		'nameserver2'       => $params["ns2"],
+		'nameserver3'       => $params["ns3"],
+		'nameserver4'       => $params["ns4"],
+		'nameserver5'       => $params["ns5"],
 		'dnsmanagement'		=> $params['dnsmanagement']	? 1 : 0,
 		'emailforwarding'	=> $params['emailforwarding']	? 1 : 0,
 		'idprotection'		=> $params['idprotection']	? 1 : 0,
-                'firstname'             => $params["firstname"],
-		'lastname'		=> $params["lastname"],
-		'companyname'           => $params["companyname"],
-		'address1'		=> $params["address1"],
-		'address2'		=> $params["address2"],
-		'city'                  => $params["city"],
-		'state'                 => $params["state"],
-		'country'		=> $params["country"],
-		'postcode'		=> $params["postcode"],
-		'phonenumber'           => $params["phonenumber"],
-                'fullphonenumber'       => $params["fullphonenumber"],
-		'email'                 => $params["adminemail"],
+        'firstname'         => $params["firstname"],
+		'lastname'			=> $params["lastname"],
+		'companyname'       => $params["companyname"],
+		'address1'			=> $params["address1"],
+		'address2'			=> $params["address2"],
+		'city'              => $params["city"],
+		'state'             => $params["state"],
+		'country'			=> $params["country"],
+		'postcode'			=> $params["postcode"],
+		'phonenumber'       => $params["phonenumber"],
+        'fullphonenumber'   => $params["fullphonenumber"],
+		'email'             => $params["adminemail"],
 		'adminfirstname'	=> $params["adminfirstname"],
 		'adminlastname'		=> $params["adminlastname"],
 		'admincompanyname'	=> $params["admincompanyname"],
 		'adminaddress1'		=> $params["adminaddress1"],
 		'adminaddress2'		=> $params["adminaddress2"],
-		'admincity'		=> $params["admincity"],
+		'admincity'			=> $params["admincity"],
 		'adminstate'		=> $params["adminstate"],
 		'admincountry'		=> $params["admincountry"],
 		'adminpostcode'		=> $params["adminpostcode"],
 		'adminphonenumber'	=> $params["adminphonenumber"],
-                'adminfullphonenumber'  => $params["adminfullphonenumber"],
+        'adminfullphonenumber'  => $params["adminfullphonenumber"],
 		'adminemail'		=> $params["adminemail"],
-                'domainfields'          => base64_encode(serialize($params["additionalfields"]))
+        'domainfields'      => base64_encode(serialize($params["additionalfields"]))
 	);
         
         if(isset($params['phonenumberformatted']))
@@ -149,44 +154,44 @@ function DomainRegister_TransferDomain($params)
 {
 	$API = new DomainRegister_API($params['api_email'], $params['api_key']);
         $requeststring = array(
-                'action'		=> 'TransferDomain',
-		'transfersecret'        => $params['transfersecret'],
-		'sld'			=> $params["sld"],
-		'tld'			=> $params["tld"],
-		'regperiod'		=> $params["regperiod"],
-		'nameserver1'           => $params["ns1"],
-		'nameserver2'           => $params["ns2"],
-		'nameserver3'           => $params["ns3"],
-		'nameserver4'           => $params["ns4"],
-		'nameserver5'           => $params["ns5"],
+        'action'			=> 'TransferDomain',
+		'transfersecret'    => $params['transfersecret'],
+		'sld'				=> $params["sld"],
+		'tld'				=> $params["tld"],
+		'regperiod'			=> $params["regperiod"],
+		'nameserver1'       => $params["ns1"],
+		'nameserver2'       => $params["ns2"],
+		'nameserver3'       => $params["ns3"],
+		'nameserver4'       => $params["ns4"],
+		'nameserver5'       => $params["ns5"],
 		'dnsmanagement'		=> $params['dnsmanagement']	? 1 : 0,
 		'emailforwarding'	=> $params['emailforwarding']	? 1 : 0,
 		'idprotection'		=> $params['idprotection']	? 1 : 0,
-                'firstname'             => $params["firstname"],
-		'lastname'		=> $params["lastname"],
-		'companyname'           => $params["companyname"],
-		'address1'		=> $params["address1"],
-		'address2'		=> $params["address2"],
-		'city'                  => $params["city"],
-		'state'                 => $params["state"],
-		'country'		=> $params["country"],
-		'postcode'		=> $params["postcode"],
-		'phonenumber'           => $params["phonenumber"],
-                'fullphonenumber'       => $params["fullphonenumber"],
-		'email'                 => $params["email"],
+        'firstname'         => $params["firstname"],
+		'lastname'			=> $params["lastname"],
+		'companyname'       => $params["companyname"],
+		'address1'			=> $params["address1"],
+		'address2'			=> $params["address2"],
+		'city'              => $params["city"],
+		'state'             => $params["state"],
+		'country'			=> $params["country"],
+		'postcode'			=> $params["postcode"],
+		'phonenumber'       => $params["phonenumber"],
+        'fullphonenumber'   => $params["fullphonenumber"],
+		'email'             => $params["email"],
 		'adminfirstname'	=> $params["adminfirstname"],
 		'adminlastname'		=> $params["adminlastname"],
 		'admincompanyname'	=> $params["admincompanyname"],
 		'adminaddress1'		=> $params["adminaddress1"],
 		'adminaddress2'		=> $params["adminaddress2"],
-		'admincity'		=> $params["admincity"],
+		'admincity'			=> $params["admincity"],
 		'adminstate'		=> $params["adminstate"],
 		'admincountry'		=> $params["admincountry"],
 		'adminpostcode'		=> $params["adminpostcode"],
 		'adminphonenumber'	=> $params["adminphonenumber"],
-                'adminfullphonenumber'  => $params["adminfullphonenumber"],
+        'adminfullphonenumber'  => $params["adminfullphonenumber"],
 		'adminemail'		=> $params["adminemail"],
-                'domainfields'          => base64_encode(serialize($params["additionalfields"]))
+        'domainfields'      => base64_encode(serialize($params["additionalfields"]))
 	);
         
         if(isset($params['phonenumberformatted']))
@@ -243,7 +248,7 @@ function DomainRegister_GetNameservers($params){
         $API  = new DomainRegister_API($params['api_email'], $params['api_key']);
 	$data = $API->simpleCall('POST', array(
 		'action'		=> 'GetNameservers',
-                'sld'			=> $params["sld"],
+        'sld'			=> $params["sld"],
 		'tld'			=> $params["tld"],
 	));
        
@@ -408,7 +413,7 @@ function DomainRegister_GetDomainFields(){
 function DomainRegister_GetRegistrarLock($params){
     $API  = new DomainRegister_API($params['api_email'], $params['api_key']);
     $data = $API->simpleCall('POST', array(
-            'action'		=> 'domaingetlockingstatus',
+            'action'	=> 'domaingetlockingstatus',
             'sld'		=> $params["sld"],
             'tld'		=> $params["tld"],
     ));
@@ -434,9 +439,9 @@ function DomainRegister_SaveRegistrarLock($params){
     $API  = new DomainRegister_API($params['api_email'], $params['api_key']);
     $data = $API->simpleCall('POST', array(
             'action'		=> 'domainupdatelockingstatus',
-            'sld'		=> $params["sld"],
-            'tld'		=> $params["tld"],
-            'lockenabled'       => $params['lockenabled']
+            'sld'			=> $params["sld"],
+            'tld'			=> $params["tld"],
+            'lockenabled'   => $params['lockenabled']
     ));
 
 
@@ -457,11 +462,11 @@ function DomainRegister_SaveRegistrarLock($params){
 function DomainRegister_GetDNS($params){
     $API  = new DomainRegister_API($params['api_email'], $params['api_key']);
     $data = $API->simpleCall('POST', array(
-            'action'		=> 'GetDNS',
+            'action'	=> 'GetDNS',
             'sld'		=> $params["sld"],
             'tld'		=> $params["tld"],
-            'regperiod'         => $params['regperiod'],
-            'regtype'           => $params['regtype'],
+            'regperiod' => $params['regperiod'],
+            'regtype'   => $params['regtype'],
     ));
 
     if($data['result']=='success'){
@@ -483,11 +488,11 @@ function DomainRegister_SaveDNS($params){
     $API  = new DomainRegister_API($params['api_email'], $params['api_key']);
     $data = $API->simpleCall('POST', array(
             'action'		=> 'SaveDNS',
-            'sld'		=> $params["sld"],
-            'tld'		=> $params["tld"],
-            'regperiod'         => $params['regperiod'],
-            'regtype'           => $params['regtype'],
-            'dnsrecords'        => base64_encode(serialize($params['dnsrecords']))
+            'sld'			=> $params["sld"],
+            'tld'			=> $params["tld"],
+            'regperiod'     => $params['regperiod'],
+            'regtype'       => $params['regtype'],
+            'dnsrecords'    => base64_encode(serialize($params['dnsrecords']))
     ));
 
     if($data['result']=='success'){
@@ -509,12 +514,12 @@ function DomainRegister_RegisterNameserver($params){
     $API  = new DomainRegister_API($params['api_email'], $params['api_key']);
     $data = $API->simpleCall('POST', array(
             'action'		=> 'RegisterNameserver',
-            'sld'		=> $params["sld"],
-            'tld'		=> $params["tld"],
-            'regperiod'         => $params['regperiod'],
-            'nameserver'        => $params['nameserver'],
-            'ipaddress'         => $params['ipaddress'],
-            'regtype'           => $params['regtype']
+            'sld'			=> $params["sld"],
+            'tld'			=> $params["tld"],
+            'regperiod'     => $params['regperiod'],
+            'nameserver'    => $params['nameserver'],
+            'ipaddress'     => $params['ipaddress'],
+            'regtype'       => $params['regtype']
     ));
 
     if($data['result']=='success'){
@@ -535,9 +540,9 @@ function DomainRegister_RegisterNameserver($params){
 function DomainRegister_ModifyNameserver($params){
     $API  = new DomainRegister_API($params['api_email'], $params['api_key']);
     $data = $API->simpleCall('POST', array(
-            'action'		=> 'ModifyNameserver',
-            'sld'		=> $params["sld"],
-            'tld'		=> $params["tld"],
+            'action'			=> 'ModifyNameserver',
+            'sld'				=> $params["sld"],
+            'tld'				=> $params["tld"],
             'regperiod'         => $params['regperiod'],
             'nameserver'        => $params['nameserver'],
             'currentipaddress'  => $params['currentipaddress'],
@@ -565,11 +570,11 @@ function DomainRegister_DeleteNameserver($params){
     $API  = new DomainRegister_API($params['api_email'], $params['api_key']);
     $data = $API->simpleCall('POST', array(
             'action'		=> 'DeleteNameserver',
-            'sld'		=> $params["sld"],
-            'tld'		=> $params["tld"],
-            'regperiod'         => $params['regperiod'],
-            'nameserver'        => $params['nameserver'],
-            'regtype'           => $params['regtype']
+            'sld'			=> $params["sld"],
+            'tld'			=> $params["tld"],
+            'regperiod'     => $params['regperiod'],
+            'nameserver'    => $params['nameserver'],
+            'regtype'       => $params['regtype']
     ));
 
     if($data['result']=='success'){
@@ -592,10 +597,10 @@ function DomainRegister_RequestDelete($params){
     $API  = new DomainRegister_API($params['api_email'], $params['api_key']);
     $data = $API->simpleCall('POST', array(
             'action'		=> 'RequestDelete',
-            'sld'		=> $params["sld"],
-            'tld'		=> $params["tld"],
-            'regperiod'         => $params['regperiod'],
-            'regtype'           => $params['regtype']
+            'sld'			=> $params["sld"],
+            'tld'			=> $params["tld"],
+            'regperiod'     => $params['regperiod'],
+            'regtype'       => $params['regtype']
     ));
     $values = array();
     if($data['result']=='success'){
@@ -618,10 +623,10 @@ function DomainRegister_TransferSync($params) {
     $API  = new DomainRegister_API($params['api_email'], $params['api_key']);
     $data = $API->simpleCall('POST', array(
             'action'		=> 'TransferSync',
-            'sld'		=> $params["sld"],
-            'tld'		=> $params["tld"],
-            'regperiod'         => $params['regperiod'],
-            'domain'            => $params['sld'].'.'.$params['tld']
+            'sld'			=> $params["sld"],
+            'tld'			=> $params["tld"],
+            'regperiod'     => $params['regperiod'],
+            'domain'        => $params['sld'].'.'.$params['tld']
     ));
     $values = array();
     if($data['result']=='success'){
@@ -686,10 +691,10 @@ function DomainRegister_GetEmailForwarding($params)
     $API  = new DomainRegister_API($params['api_email'], $params['api_key']);
     $data = $API->simpleCall('POST', array(
             'action'		=> 'GetEmailForwarding',
-            'sld'		=> $params["sld"],
-            'tld'		=> $params["tld"],
-            'regperiod'         => $params['regperiod'],
-            'regtype'           => $params['regtype']
+            'sld'			=> $params["sld"],
+            'tld'			=> $params["tld"],
+            'regperiod'     => $params['regperiod'],
+            'regtype'       => $params['regtype']
     ));
     if($data['result']=='success'){
         unset($data['result']);
@@ -709,12 +714,12 @@ function DomainRegister_SaveEmailForwarding($params)
     $API  = new DomainRegister_API($params['api_email'], $params['api_key']);
     $data = $API->simpleCall('POST', array(
             'action'		=> 'SaveEmailForwarding',
-            'sld'		=> $params["sld"],
-            'tld'		=> $params["tld"],
-            'regperiod'         => $params['regperiod'],
-            'regtype'           => $params['regtype'],
-            'prefix'            => base64_encode(serialize($params['prefix'])),
-            'forwardto'         => base64_encode(serialize($params['forwardto']))
+            'sld'			=> $params["sld"],
+            'tld'			=> $params["tld"],
+            'regperiod'     => $params['regperiod'],
+            'regtype'       => $params['regtype'],
+            'prefix'        => base64_encode(serialize($params['prefix'])),
+            'forwardto'     => base64_encode(serialize($params['forwardto']))
     ));
     if($data['result']=='success'){
         return $data;
@@ -735,11 +740,11 @@ function DomainRegister_IDProtectToggle($params)
     $API  = new DomainRegister_API($params['api_email'], $params['api_key']);
     $data = $API->simpleCall('POST', array(
             'action'		=> 'IDProtectToggle',
-            'sld'		=> $params["sld"],
-            'tld'		=> $params["tld"],
-            "domainname"        => $params["domainname"],
-            "regperiod"         => $params["regperiod"],
-            'protectenable'     => $params["protectenable"]
+            'sld'			=> $params["sld"],
+            'tld'			=> $params["tld"],
+            "domainname"    => $params["domainname"],
+            "regperiod"     => $params["regperiod"],
+            'protectenable' => $params["protectenable"]
     ));
     if($data['result']=='success'){
         return $data;
@@ -748,3 +753,84 @@ function DomainRegister_IDProtectToggle($params)
            'error' => $API->getError()
        );
 }
+
+
+
+
+/**
+* FUNCTION DomainRegister_CreditAmount
+* This function gets the value of credit amount available to the Reseller
+* @param array $params
+* @return array $return
+*/
+function DomainRegister_CreditAmount($params)
+  {
+    $API  = new DomainRegister_API($params['api_email'], $params['api_key']);
+    $data = $API->simpleCall('POST', array(
+            'action'		=> 'CreditAmount'
+    ));
+    return $params;
+    return $data;
+    if($data['result']=='success'){
+        unset($data['result']);
+        return $data;
+    } 
+}
+
+use WHMCS\Domain\TopLevel\ImportItem;
+use WHMCS\Results\ResultsList;
+
+function DomainRegister_GetTldPricing(array $params)
+{
+    // Perform API call to retrieve extension information
+    // A connection error should return a simple array with error key and message
+    // return ['error' => 'This error occurred',];
+
+    $results = new ResultsList;
+  
+    $data = array(
+         "action"		=> "GetPricing",
+         "token"        => $params['api_key'],
+         "authemail"    => trim($params['api_email'])
+    );
+  
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, "https://domainregister.international/domainsResellerAPI/api.php");
+    curl_setopt($ch, CURLOPT_TIMEOUT, 30);
+    curl_setopt($ch, CURLOPT_FRESH_CONNECT, 1);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($data));
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_HEADER, true);
+    curl_setopt($ch, CURLINFO_HEADER_OUT, 1);
+    $result = curl_exec($ch);
+
+    $headerlenght=strpos($result,'{"result"');
+    $result2 = substr($result,$headerlenght);
+    $res    = json_decode($result2, true);
+    $domains=$res['pricing'];
+    $tlds=array_keys($domains);
+
+    foreach ($tlds as $tld) {
+         $item = (new ImportItem)
+                ->setExtension('.'.$tld)
+                ->setMinYears('1')
+                ->setMaxYears(max(array_keys($domains[$tld]['renew'])))
+                ->setRegisterPrice($domains[$tld]['register']['1'])
+                ->setRenewPrice($domains[$tld]['renew']['1'])
+                ->setTransferPrice($domains[$tld]['transfer']['1'])
+                ->setGraceFeeDays($domains[$tld]['grace_period']['days'])
+                ->setGraceFeePrice($domains[$tld]['gracefee'])       
+                ->setRedemptionFeeDays($domains[$tld]['redemption_period']['days'])
+                ->setRedemptionFeePrice($domains[$tld]['redemptionfee'])
+                ->setCurrency('EUR')
+                ->setEppRequired($domains[$tld]['EPP']);
+         $results[] = $item;
+    }  
+  
+    return $results;
+}
+
+
+
